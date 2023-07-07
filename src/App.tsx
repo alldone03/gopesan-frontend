@@ -1,6 +1,6 @@
 
 
-import { Route, Routes, } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate, } from "react-router-dom";
 
 import Login from './pages/login';
 import './index.css';
@@ -8,23 +8,31 @@ import Layout from './component/layout';
 import Register from "./pages/register";
 
 import { AuthContext, AuthProvider } from "./store/auth-context";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/dashboard/dashboard";
+import MyRedirect from "./pages/myredirect";
+import { CookiesProvider } from "react-cookie";
+import AddToko from "./pages/data/toko";
+
 
 function App() {
 
 
   return (
     <>
-      <AuthProvider value={AuthContext}>
+      <CookiesProvider>
+        <AuthProvider value={AuthContext}>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<MyRedirect />} exact />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/toko" element={<AddToko />} />
+            </Routes>
+          </Layout>
+        </AuthProvider>
+      </CookiesProvider>
 
-        <Layout>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </Layout>
-      </AuthProvider>
     </>
   )
 }
