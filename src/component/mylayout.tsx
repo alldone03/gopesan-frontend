@@ -13,16 +13,19 @@ export default function MyLayout(props: { children: any }) {
     const [showSideBar, setShowSideBar] = useState(false);
 
     const context = useContext(AuthContext);
+    const userData: AuthData = JSON.parse(localStorage.getItem('authdata') as string);
+
+
     const navigate = useNavigate();
     useEffect(() => {
 
-        if (context.authdata.user.email === '') {
+        if (userData.token === '') {
             navigate('/login');
         }
     })
 
     function signOut() {
-        const token = context.authdata.token;
+        const token = userData.token;
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
@@ -36,7 +39,8 @@ export default function MyLayout(props: { children: any }) {
             bodyParameters,
             config
         ).then(() => {
-            context.addDataHandler({ token: '', user: { id: 0, email: '', name: '', roleid: 0 } } as AuthData);
+            localStorage.setItem('authdata', JSON.stringify({ token: '', user: { id: '', email: '', name: '', roleid: '' } }));
+            navigate('/login');
         }).catch(console.log);
     }
 

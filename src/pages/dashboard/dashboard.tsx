@@ -7,18 +7,14 @@ import MyLayout from "../../component/mylayout";
 export default function Dashboard() {
     const context = useContext(AuthContext);
 
-    const navigate = useNavigate();
-    useEffect(() => {
+    const dataLofinFromLocal = localStorage.getItem('authdata');
 
-        if (context.authdata.user.email === '') {
-            navigate('/login');
-        }
-    })
+    // console.log({ dataLofinFromLocal: dataLofinFromLocal });
 
 
     return (<>
         <MyLayout >
-            <div>hello</div>
+            <div className="text-white">{dataLofinFromLocal}</div>
         </MyLayout>
 
     </>);

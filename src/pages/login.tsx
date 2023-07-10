@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 
 
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import { AuthContext } from "../store/auth-context";
 import { useNavigate } from "react-router-dom";
 import { AuthData } from "../store/models/authdata";
@@ -21,6 +21,17 @@ export default function Login() {
 
     const navigate = useNavigate();
 
+
+    const userData: AuthData = JSON.parse(localStorage.getItem('authdata') as string);
+    useEffect(() => {
+        console.log(userData.token);
+
+        if (userData.token != '') {
+            navigate('/dashboard');
+        }
+
+    });
+
     function submitData(event: any) {
         event.preventDefault();
         const form = new FormData();
@@ -34,8 +45,8 @@ export default function Login() {
             }
         }).then((response) => {
             // console.log(response.data);
+            localStorage.setItem('authdata', JSON.stringify({ token: response.data.token, user: { id: response.data.user.id, email: response.data.user.email, name: response.data.user.name, roleid: response.data.user.roleid } } as AuthData));
 
-            authContext.addDataHandler({ token: response.data.token, user: { id: response.data.user.id, email: response.data.user.email, name: response.data.user.name, roleid: response.data.user.roleid } } as AuthData);
             navigate('/dashboard');
 
 
