@@ -12,7 +12,7 @@ export default function MyLayout(props: { children: any }) {
     const [showAccount, setShowAccount] = useState(false);
     const [showSideBar, setShowSideBar] = useState(false);
 
-    const context = useContext(AuthContext);
+
     const userData: AuthData = JSON.parse(localStorage.getItem('authdata') as string);
 
 
@@ -22,6 +22,18 @@ export default function MyLayout(props: { children: any }) {
         if (userData.token === '') {
             navigate('/login');
         }
+        axios.get(import.meta.env.VITE_API_URL + "/namatoko", {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${userData.token}`
+            }
+        }).catch((response) => {
+            if (response.response.status === 401) {
+                localStorage.setItem('authdata', JSON.stringify({ token: '', user: { id: '', email: '', name: '', roleid: '' } }));
+                navigate('/login');
+            }
+
+        })
     })
 
     function signOut() {
@@ -71,10 +83,10 @@ export default function MyLayout(props: { children: any }) {
                             <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 block" id="dropdown-user" style={{ position: "absolute", inset: "0px auto auto 0px", margin: "0px", transform: showAccount ? "translate(calc(100vw - 210px), 60px)" : "translate(calc(8000px), 60px)", }} data-popper-placement="bottom">
                                 <div className="px-4 py-3" role="none">
                                     <p className="text-sm text-gray-900 dark:text-white" role="none">
-                                        {context.authdata.user.name}
+                                        {userData.user.name}
                                     </p>
                                     <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                        {context.authdata.user.email}
+                                        {userData.user.email}
                                     </p>
                                 </div>
                                 <ul className="py-1" role="none">

@@ -2,7 +2,7 @@
 
 export default function Layout(props: any) {
     return (<>
-        <main className="">
+        <main className="bg">
             {props.children}
         </main>
 
