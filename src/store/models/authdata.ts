@@ -3,6 +3,7 @@ interface user{
   roleid: number;
   name: string;
   email: string;
+  pathuserpicture?: string;
 }
 
 

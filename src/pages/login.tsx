@@ -45,14 +45,9 @@ export default function Login() {
             }
         }).then((response) => {
             // console.log(response.data);
-            localStorage.setItem('authdata', JSON.stringify({ token: response.data.token, user: { id: response.data.user.id, email: response.data.user.email, name: response.data.user.name, roleid: response.data.user.roleid } } as AuthData));
+            localStorage.setItem('authdata', JSON.stringify({ token: response.data.token, user: { id: response.data.user.id, email: response.data.user.email, name: response.data.user.name, roleid: response.data.user.roleid, pathuserpicture: response.data.user.pathuserpicture } } as AuthData));
 
             navigate('/dashboard');
-
-
-
-
-
         }).catch((error) => {
 
             setMessage([error.response.status as never, error.response.data.message as never]);

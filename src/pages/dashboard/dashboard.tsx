@@ -9,7 +9,6 @@ export default function Dashboard() {
 
     const dataLofinFromLocal = localStorage.getItem('authdata');
 
-    // console.log({ dataLofinFromLocal: dataLofinFromLocal });
 
 
     return (<>

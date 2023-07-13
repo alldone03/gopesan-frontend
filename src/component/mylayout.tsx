@@ -19,21 +19,21 @@ export default function MyLayout(props: { children: any }) {
     const navigate = useNavigate();
     useEffect(() => {
 
-        if (userData.token === '') {
-            navigate('/login');
-        }
-        axios.get(import.meta.env.VITE_API_URL + "/namatoko", {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${userData.token}`
-            }
-        }).catch((response) => {
-            if (response.response.status === 401) {
-                localStorage.setItem('authdata', JSON.stringify({ token: '', user: { id: '', email: '', name: '', roleid: '' } }));
-                navigate('/login');
-            }
+        // if (userData.token === '') {
+        //     navigate('/login');
+        // }
+        // axios.get(import.meta.env.VITE_API_URL + "/namatoko", {
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Authorization': `Bearer ${userData.token}`
+        //     }
+        // }).catch((response) => {
+        //     if (response.response.status === 401) {
+        //         localStorage.setItem('authdata', JSON.stringify({ token: '', user: { id: '', email: '', name: '', roleid: '' } }));
+        //         navigate('/login');
+        //     }
 
-        })
+        // })
     })
 
     function signOut() {
@@ -78,7 +78,7 @@ export default function MyLayout(props: { children: any }) {
                         <div className="flex items-center ml-3">
                             <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user" onClick={() => { setShowAccount(!showAccount) }}>
                                 <span className="sr-only">Open user menu</span>
-                                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                                <img className="w-8 h-8 rounded-full" src={userData.user.pathuserpicture ? import.meta.env.VITE_SERVER_URL + "/" + userData.user.pathuserpicture : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"} alt="user photo" />
                             </button>
                             <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 block" id="dropdown-user" style={{ position: "absolute", inset: "0px auto auto 0px", margin: "0px", transform: showAccount ? "translate(calc(100vw - 210px), 60px)" : "translate(calc(8000px), 60px)", }} data-popper-placement="bottom">
                                 <div className="px-4 py-3" role="none">
@@ -91,14 +91,7 @@ export default function MyLayout(props: { children: any }) {
                                 </div>
                                 <ul className="py-1" role="none">
                                     <li>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
+                                        <button onClick={() => { navigate('/setting') }} className="w-full block  px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</button>
                                     </li>
                                     <li>
                                         <button onClick={() => signOut()} className=" w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</button>

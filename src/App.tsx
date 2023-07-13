@@ -12,6 +12,7 @@ import Dashboard from "./pages/dashboard/dashboard";
 import MyRedirect from "./pages/myredirect";
 import { CookiesProvider } from "react-cookie";
 import AddToko from "./pages/data/toko";
+import Setting from "./pages/setting";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/toko" element={<AddToko />} />
+              <Route path="/setting" element={<Setting />} />
             </Routes>
           </Layout>
         </AuthProvider>
