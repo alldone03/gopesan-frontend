@@ -3,7 +3,7 @@ import { AuthContext } from "../store/auth-context";
 import SideBar from "./sidebar";
 import axios from "axios";
 import { AuthData } from "../store/models/authdata";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 // import classes from './header.module.css';
 
@@ -13,27 +13,29 @@ export default function MyLayout(props: { children: any }) {
     const [showSideBar, setShowSideBar] = useState(false);
 
 
-    const userData: AuthData = JSON.parse(localStorage.getItem('authdata') as string);
-
-
+    const userData: AuthData = JSON.parse(sessionStorage.getItem('authdata') as string);
     const navigate = useNavigate();
+    if (userData == null) {
+        redirect('/login');
+    }
+
     useEffect(() => {
+        console.log(sessionStorage.getItem('authdata'));
 
-        // if (userData.token === '') {
-        //     navigate('/login');
-        // }
-        // axios.get(import.meta.env.VITE_API_URL + "/namatoko", {
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Authorization': `Bearer ${userData.token}`
-        //     }
-        // }).catch((response) => {
-        //     if (response.response.status === 401) {
-        //         localStorage.setItem('authdata', JSON.stringify({ token: '', user: { id: '', email: '', name: '', roleid: '' } }));
-        //         navigate('/login');
-        //     }
 
-        // })
+        //token check
+        axios.post(import.meta.env.VITE_API_URL + "/getuserdata", {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${userData.token}`
+            }
+        }).catch((response) => {
+            if (response.response.status === 401) {
+                sessionStorage.removeItem('authdata');
+                navigate('/login');
+            }
+
+        })
     })
 
     function signOut() {
@@ -51,7 +53,8 @@ export default function MyLayout(props: { children: any }) {
             bodyParameters,
             config
         ).then(() => {
-            localStorage.setItem('authdata', JSON.stringify({ token: '', user: { id: '', email: '', name: '', roleid: '' } }));
+            // sessionStorage.setItem('authdata', JSON.stringify({ token: '', user: { id: '', email: '', name: '', roleid: '' } }));
+            sessionStorage.removeItem('authdata');
             navigate('/login');
         }).catch(console.log);
     }

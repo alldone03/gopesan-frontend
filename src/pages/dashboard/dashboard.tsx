@@ -7,7 +7,7 @@ import MyLayout from "../../component/mylayout";
 export default function Dashboard() {
     const context = useContext(AuthContext);
 
-    const dataLofinFromLocal = localStorage.getItem('authdata');
+    const dataLofinFromLocal = sessionStorage.getItem('authdata');
 
 
 

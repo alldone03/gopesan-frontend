@@ -16,7 +16,7 @@ export default function Toko() {
     const [showModalUpdateId, setShowModalUpdateId] = useState(0);
     const [namaToko, setNamaToko] = useState('');
     const [changeData, setChangeData] = useState(false);
-    const userData: AuthData = JSON.parse(localStorage.getItem('authdata') as string);
+    const userData: AuthData = JSON.parse(sessionStorage.getItem('authdata') as string);
     const [namaTokoList, setNamaTokoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const Toast = Swal.mixin({

@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 
 import axios, { formToJSON } from "axios";
 import { AuthContext } from "../store/auth-context";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthData } from "../store/models/authdata";
 import Alert from "../component/alert";
 
@@ -16,19 +16,22 @@ export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const authContext = useContext(AuthContext);
+
     const [message, setMessage] = useState([]);
 
     const navigate = useNavigate();
 
 
-    const userData: AuthData = JSON.parse(localStorage.getItem('authdata') as string);
+    const userData: AuthData = JSON.parse(sessionStorage.getItem('authdata') as string);
     useEffect(() => {
-        console.log(userData.token);
+        // console.log(sessionStorage.getItem('authdata'));
 
-        if (userData.token != '') {
+        if (sessionStorage.getItem('authdata') === null) {
+            sessionStorage.removeItem('authdata');
+        } else {
             navigate('/dashboard');
         }
+
 
     });
 
@@ -44,8 +47,8 @@ export default function Login() {
                 'Accept': 'application/json',
             }
         }).then((response) => {
-            // console.log(response.data);
-            localStorage.setItem('authdata', JSON.stringify({ token: response.data.token, user: { id: response.data.user.id, email: response.data.user.email, name: response.data.user.name, roleid: response.data.user.roleid, pathuserpicture: response.data.user.pathuserpicture } } as AuthData));
+
+            sessionStorage.setItem('authdata', JSON.stringify({ token: response.data.token, user: { id: response.data.user.id, email: response.data.user.email, name: response.data.user.name, roleid: response.data.user.roleid, pathuserpicture: response.data.user.pathuserpicture } } as AuthData));
 
             navigate('/dashboard');
         }).catch((error) => {

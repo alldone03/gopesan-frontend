@@ -5,7 +5,7 @@ import { Upload } from "./api";
 
 export default function Setting() {
 
-    const userData: AuthData = JSON.parse(localStorage.getItem('authdata') as string);
+    const userData: AuthData = JSON.parse(sessionStorage.getItem('authdata') as string);
     const [name, setName] = useState(userData.user.name);
     const [password, setPassword] = useState(userData.user.name);
     const [confirmPassword, setConfirmPassword] = useState(userData.user.name);
