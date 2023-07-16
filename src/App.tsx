@@ -15,24 +15,7 @@ import AddToko from "./pages/data/toko";
 import Setting from "./pages/setting";
 import Menu from "./pages/data/menu";
 
-const privateRoute = () => {
 
-  const isLogin = sessionStorage.getItem('authdata');
-
-
-
-  if (isLogin === null) {
-    return;
-  }
-  return (
-    <Route>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/toko" element={<AddToko />} />
-      <Route path="/menu" element={<Menu />} />
-      <Route path="/setting" element={<Setting />} />
-    </Route>
-  )
-}
 
 function App() {
 
@@ -46,10 +29,11 @@ function App() {
               <Route path="/" element={<MyRedirect />} exact />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              {privateRoute()}
 
-
-
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/toko" element={<AddToko />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/setting" element={<Setting />} />
             </Routes>
           </Layout>
         </AuthProvider>

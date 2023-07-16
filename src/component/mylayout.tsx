@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../store/auth-context";
+import { useEffect, useState } from "react";
+
 import SideBar from "./sidebar";
 import axios from "axios";
 import { AuthData } from "../store/models/authdata";
@@ -15,27 +15,29 @@ export default function MyLayout(props: { children: any }) {
 
     const userData: AuthData = JSON.parse(sessionStorage.getItem('authdata') as string);
     const navigate = useNavigate();
+    // console.log(userData);
+
     if (userData == null) {
-        redirect('/login');
+        window.location.href = '/login';
     }
 
     useEffect(() => {
-        console.log(sessionStorage.getItem('authdata'));
+        // console.log(sessionStorage.getItem('authdata'));
 
 
         //token check
-        axios.post(import.meta.env.VITE_API_URL + "/getuserdata", {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${userData.token}`
-            }
-        }).catch((response) => {
-            if (response.response.status === 401) {
-                sessionStorage.removeItem('authdata');
-                navigate('/login');
-            }
+        // axios.post(import.meta.env.VITE_API_URL + "/getuserdata", {
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Authorization': `Bearer ${userData.token}`
+        //     }
+        // }).catch((response) => {
+        //     if (response.response.status === 401) {
+        //         sessionStorage.removeItem('authdata');
+        //         navigate('/login');
+        //     }
 
-        })
+        // })
     })
 
     function signOut() {
@@ -81,7 +83,7 @@ export default function MyLayout(props: { children: any }) {
                         <div className="flex items-center ml-3">
                             <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user" onClick={() => { setShowAccount(!showAccount) }}>
                                 <span className="sr-only">Open user menu</span>
-                                <img className="w-8 h-8 rounded-full" src={userData.user.pathuserpicture ? import.meta.env.VITE_SERVER_URL + "/" + userData.user.pathuserpicture : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"} alt="user photo" />
+                                <img className="w-8 h-8 rounded-full" src={userData.user.pathuserpicture != null ? import.meta.env.VITE_SERVER_URL + "/" + userData.user.pathuserpicture : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"} alt="user photo" />
                             </button>
                             <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 block" id="dropdown-user" style={{ position: "absolute", inset: "0px auto auto 0px", margin: "0px", transform: showAccount ? "translate(calc(100vw - 210px), 60px)" : "translate(calc(8000px), 60px)", }} data-popper-placement="bottom">
                                 <div className="px-4 py-3" role="none">

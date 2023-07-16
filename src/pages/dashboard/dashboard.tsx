@@ -8,6 +8,12 @@ export default function Dashboard() {
     const context = useContext(AuthContext);
 
     const dataLofinFromLocal = sessionStorage.getItem('authdata');
+    if (dataLofinFromLocal === null) {
+        window.location.href = '/login';
+
+    }
+
+
 
 
 

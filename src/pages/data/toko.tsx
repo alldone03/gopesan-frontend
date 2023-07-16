@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import MyLayout from "../../component/mylayout"
 import { AuthData } from "../../store/models/authdata";
 import axios from "axios";
@@ -29,16 +29,20 @@ export default function Toko() {
 
     useEffect(() => {
 
-        axios.get(import.meta.env.VITE_API_URL + "/namatoko", {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${userData.token}`
-            }
-        }).then((response) => {
+        return () => {
+            axios.get(import.meta.env.VITE_API_URL + "/namatoko", {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${userData.token}`
+                }
+            }).then((response) => {
 
-            setNamaTokoList(response.data.data);
-            setIsLoading(false);
-        })
+                setNamaTokoList(response.data.data);
+                setIsLoading(false);
+            })
+
+
+        }
     }, [changeData]);
 
 
@@ -59,6 +63,8 @@ export default function Toko() {
                 icon: 'success',
                 title: 'Add in successfully'
             })
+
+
 
         })
     }
