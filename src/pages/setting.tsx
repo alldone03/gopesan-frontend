@@ -27,7 +27,18 @@ export default function Setting() {
         form.append('file', images);
 
         const response = await Upload(form);
-        console.log(response);
+        console.log(response.data);
+
+        // const userdata = JSON.parse(sessionStorage.getItem('authdata') as string);
+
+        // userdata.user.pathuserpicture = response.data;
+        // console.log(userData.user.pathuserpicture);
+
+        sessionStorage.setItem('authdata', JSON.stringify({ token: userData.token, user: { id: userData.user.id, email: userData.user.email, name: userData.user.name, roleid: userData.user.roleid, pathuserpicture: response.data } } as AuthData));
+        const myuserdata = JSON.parse(sessionStorage.getItem('authdata') as string);
+        console.log(myuserdata.user);
+
+
     }
 
 

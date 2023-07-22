@@ -3,6 +3,8 @@ import { AuthContext } from "../../store/auth-context";
 import { useNavigate } from "react-router-dom";
 
 import MyLayout from "../../component/mylayout";
+import Button from "../../component/button";
+import Form from "../../component/Form";
 
 export default function Dashboard() {
     const context = useContext(AuthContext);
@@ -20,6 +22,15 @@ export default function Dashboard() {
     return (<>
         <MyLayout >
             <div className="text-white">{dataLofinFromLocal}</div>
+
+
+            <div><Button>hello</Button></div>
+
+
+            <div>
+                <div className="h-10"></div>
+                <Form title="username" name="username" placeholder="@gamusl"></Form>
+            </div>
         </MyLayout>
 
     </>);

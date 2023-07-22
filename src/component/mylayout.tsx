@@ -108,15 +108,16 @@ export default function MyLayout(props: { children: any }) {
                 </div>
             </div>
         </nav >
-        <SideBar sidebarstate={showSideBar} />
+        <div>
 
-        <div className="dark:bg-gray-900 " style={{ height: "calc(100vh )" }}>
-            <div className="p-4 sm:ml-64">
-                <div className="p-4 mt-12    rounded-lg ">
-                    {props.children}
-                </div>
-            </div>
+            <SideBar sidebarstate={showSideBar} />
         </div>
+
+
+        <div className="p-4 mt-12    rounded-lg ">
+            {props.children}
+        </div>
+
 
 
 
