@@ -8,13 +8,13 @@ export default function MyRedirect(props: any) {
     const navigate = useNavigate();
 
 
-    useEffect(() => { setTimeout(() => { navigate('login') }, 2000); }, []);
+    useEffect(() => { setTimeout(() => { navigate('/login') }, 2000); }, []);
 
 
 
     return (<>
-        <div className="flex flex-col items-center justify-center  bg-white">
-            <div className="h-72" />
+        <div className="flex flex-col items-center justify-center h-screen bg-white">
+
             <div className="flex flex-col items-center">
                 <img src={logo} alt="" className="h-auto w-56" />
                 <br />

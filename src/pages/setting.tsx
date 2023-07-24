@@ -1,16 +1,26 @@
 import { useState } from "react";
-import MyLayout from "../component/mylayout"
+
 import { AuthData } from "../store/models/authdata";
 import { Upload } from "./api";
 
+import Layout2 from "../component/layout2";
+
+
 export default function Setting() {
 
+
+
     const userData: AuthData = JSON.parse(sessionStorage.getItem('authdata') as string);
+    if (userData == null) {
+        window.location.href = "/login";
+    }
     const [name, setName] = useState(userData.user.name);
     const [password, setPassword] = useState(userData.user.name);
     const [confirmPassword, setConfirmPassword] = useState(userData.user.name);
     const [file, setFile] = useState('');
     const [images, setImages] = useState(null);
+
+
     function handleChangePicture(e: any) {
         setFile(URL.createObjectURL(e.target.files[0]));
         setImages(e.target.files[0]);
@@ -44,7 +54,7 @@ export default function Setting() {
 
 
     return (
-        <MyLayout>
+        <Layout2>
             <div>
                 <h1 className="font-bold text-2xl text-white ">Setting</h1>
             </div>
@@ -88,6 +98,6 @@ export default function Setting() {
                     </div>
                 </div>
             </div>
-        </MyLayout>
+        </Layout2>
     );
 }

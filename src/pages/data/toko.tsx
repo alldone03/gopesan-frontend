@@ -5,6 +5,7 @@ import axios from "axios";
 
 import qs from "qs";
 import Swal from "sweetalert2";
+import Layout2 from "../../component/layout2";
 
 
 
@@ -161,7 +162,7 @@ export default function Toko() {
 
 
     return (<>
-        <MyLayout>
+        <Layout2>
             <h1 className="font-bold text-2xl text-white">Toko</h1>
             <div className="h-5"></div>
             <div className="flex flex-col gap-4">
@@ -230,6 +231,6 @@ export default function Toko() {
                 </div>
             </div>
 
-        </MyLayout >
+        </ Layout2>
     </>);
 }
