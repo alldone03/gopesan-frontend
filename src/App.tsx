@@ -8,11 +8,7 @@ import store from './redux/store';
 import router from "./route";
 
 
-
-
-
 function App() {
-
 
   return (
     <>

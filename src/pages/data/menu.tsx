@@ -22,7 +22,7 @@ export default function Menu() {
     const [isLoading, setIsLoading] = useState(true);
     const [statedropdownaddtoko, setStatedropdownaddtoko] = useState(0);
     const [statedropdownaddjenismakanan, setStatedropdownaddjenismakanan] = useState(0);
-    const [updateId, setUpdateId] = useState(0);
+
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -61,7 +61,7 @@ export default function Menu() {
         setShowModalAdd(!showModalAdd);
 
     }
-    const addMenu = async (event) => {
+    const addMenu = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         const data = new FormData;
         data.append('id_namatoko', statedropdownaddtoko.toString());
@@ -82,7 +82,7 @@ export default function Menu() {
         //
     }
 
-    const showUpdateMenu = async (id: any) => {
+    const showUpdateMenu = async (id: number) => {
         const mymenu = await menuAll();
         const mydatatoko = await dataToko();
         const myjenismakanan = await jenisMakananAll();
@@ -91,7 +91,7 @@ export default function Menu() {
 
 
 
-        const mymenuAll = mymenu.data.filter((element) => {
+        const mymenuAll = mymenu.data.filter((element: { id: number; }) => {
             if (element.id == id)
                 return element;
         })
@@ -107,7 +107,7 @@ export default function Menu() {
         setShowModalUpdate(!showModalUpdate);
 
     }
-    const updateMenu = async (event: any) => {
+    const updateMenu = async (event) => {
         event.preventDefault();
 
         // console.log(event.target[0].value);
@@ -144,8 +144,31 @@ export default function Menu() {
     function deleteMenu(id: any) {
 
         console.log("hello:", id);
+        Swal.fire({
+            title: 'Do you want to Delete?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
 
-        //
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                axios.delete(import.meta.env.VITE_API_URL + `/menu/${id}`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${userData.token}`
+                    }
+                }).then(() => {
+                    setChangeData(!changeData);
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Delete in successfully'
+                    })
+                })
+            }
+        })
+
+
     }
 
 
@@ -182,7 +205,7 @@ export default function Menu() {
     }
     function tokohandleChange(event: any) {
         //
-        // console.log(event.target.value);
+
         setStatedropdownaddtoko(event.target.value);
 
     }

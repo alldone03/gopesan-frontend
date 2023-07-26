@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AuthData } from "../store/models/authdata";
 
-function unauth(error: any) {
+export function unauth(error: any) {
   if (error.response.status == 401) {
     sessionStorage.clear();
     window.location.href = "/login";

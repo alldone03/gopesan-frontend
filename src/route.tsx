@@ -6,6 +6,7 @@ import AddToko from "./pages/data/toko";
 import Setting from "./pages/setting";
 import Menu from "./pages/data/menu";
 import Dashboard from "./pages/dashboard/dashboard";
+import Varian from "./pages/data/varian/varian";
 
 
 const router = createBrowserRouter(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
         { path: '/toko', element: <AddToko /> },
         { path: '/menu', element: <Menu /> },
         { path: '/settings', element: <Setting /> },
+        { path: '/varian', element: <Varian /> },
     ]
 );
 
