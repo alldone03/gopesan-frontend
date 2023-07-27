@@ -28,9 +28,6 @@ export default function Varian() {
         });
     }, [isRefresh]);
 
-
-
-
     const fetchVarian = () => {
         const handleUpdate = (id: number) => {
             dispatch(changeId(id));
@@ -64,17 +61,14 @@ export default function Varian() {
                     });
                 }
             })
-
-            // dispatch(changeIsRefresh());
-
         }
+
         return (
             dataVarian.map((item: any, index: number) => {
-
-
                 return (
                     <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
                         <td className="px-6 py-4">{index + 1}</td>
+                        <td className="px-6 py-4">{item.namatoko}</td>
                         <td className="px-6 py-4">{item.namamenu}</td>
                         <td className="px-6 py-4">{item.varian}</td>
                         <td className="px-6 py-4">
@@ -95,8 +89,6 @@ export default function Varian() {
                 )
             })
         );
-
-
     }
     const Table = () => {
         const isLoading = useSelector((state: any) => state.varianSlice.isLoading);
@@ -109,6 +101,7 @@ export default function Varian() {
                         <tr>
                             <th scope="col" className="px-6 py-3">no</th>
                             <th scope="col" className="px-6 py-3">Nama Toko</th>
+                            <th scope="col" className="px-6 py-3">Nama Menu</th>
                             <th scope="col" className="px-6 py-3">Nama Varian</th>
                             <th scope="col" className="px-6 py-3">Actions</th>
                         </tr>
@@ -164,9 +157,6 @@ const Modal = () => {
                     const id_menu = dataVarian.find(x => x.id == id)?.id_menu;
                     setNamevalue(dataVarian.find(x => x.id == id)?.varian);
                     setIdSelect(id_menu);
-
-
-
                 }
             }
         }
@@ -179,7 +169,7 @@ const Modal = () => {
 
     const fetchMenu = () => {
         return namaMenu.map((menu: any) => {
-            return <option key={menu.id} value={menu.id}>{menu.namamenu}</option>
+            return <option key={menu.id} value={menu.id}>{menu.namatoko} - {menu.namamenu}</option>
         })
     }
     const handleSubmit = (e: any) => {
